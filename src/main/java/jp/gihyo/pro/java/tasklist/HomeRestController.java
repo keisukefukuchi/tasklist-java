@@ -11,7 +11,6 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/rest")
 public class HomeRestController {
     @RequestMapping(value = "/hello")
     String hello(Model model) {
@@ -28,12 +27,12 @@ public class HomeRestController {
         String id = UUID.randomUUID().toString().substring(0,8);
         TaskItem item = new TaskItem(id,task,deadline,false);
         taskItems.add(item);
-        return "タスクを追加しました。";
+        return "redirect:/list";
     }
 
     @GetMapping("/list")
-    String listItems() {
-        return taskItems.stream().map(t -> t.toString())
-                .collect(Collectors.joining(", "));
+    String listItems(Model model) {
+        model.addAttribute("taskList" , taskItems);
+        return "home";
     }
 }
