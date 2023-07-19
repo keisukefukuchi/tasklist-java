@@ -33,4 +33,10 @@ public class HomeRestController {
         taskItems.add(item);
         return "タスクを追加しました。";
     }
+
+    @GetMapping("/list")
+    String listItems() {
+        return taskItems.stream().map(t -> t.toString())
+                .collect(Collectors.joining(", "));
+    }
 }
