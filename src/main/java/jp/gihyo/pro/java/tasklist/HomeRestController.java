@@ -1,6 +1,7 @@
 package jp.gihyo.pro.java.tasklist;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -13,18 +14,9 @@ import java.util.stream.Collectors;
 @RequestMapping("/rest")
 public class HomeRestController {
     @RequestMapping(value = "/hello")
-    @ResponseBody
-    String hello() {
-        return """
-                <html>
-                   <head><title>Hello</title></head>
-                   <body>
-                     <h1>Hello</h1>
-                     It works!<br>
-                     現在時刻は%sです。
-                   </body>
-                </html>
-                """.formatted(LocalDateTime.now());
+    String hello(Model model) {
+        model.addAttribute("time", LocalDateTime.now());
+        return "hello";
     }
 
     record TaskItem(String id, String task, String deadline, boolean done) {}
