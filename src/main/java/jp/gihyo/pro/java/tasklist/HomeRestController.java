@@ -1,24 +1,29 @@
 package jp.gihyo.pro.java.tasklist;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-@RestController
+@Controller
 @RequestMapping("/rest")
 public class HomeRestController {
     @RequestMapping(value = "/hello")
+    @ResponseBody
     String hello() {
         return """
-                Hello.
-                It works!
-                現在時刻は%sです。
+                <html>
+                   <head><title>Hello</title></head>
+                   <body>
+                     <h1>Hello</h1>
+                     It works!<br>
+                     現在時刻は%sです。
+                   </body>
+                </html>
                 """.formatted(LocalDateTime.now());
     }
 
